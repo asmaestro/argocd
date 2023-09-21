@@ -7,5 +7,7 @@ helm upgrade --install argocd argo/argo-cd \
   --create-namespace --namespace argocd \
   --values argo-bootstrap/argo-values.yaml \
   --version 5.46.6
+
+kubectl apply -f ./applications
   
 

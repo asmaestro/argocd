@@ -6,7 +6,9 @@ metadata:
 spec:
   generators:
   - git:
+       # CHANGE TO YOURS
       repoURL: https://github.com/asmaestro/bm-gitops.git
+       # CHANGE TO YOURS
       revision: solution-gitops-base
       directories:
       - path: overlays/*
@@ -20,7 +22,9 @@ spec:
     spec:
       project: default
       source:
+        # CHANGE TO YOURS
         repoURL: https://github.com/asmaestro/bm-gitops.git
+        # CHANGE TO YOURS
         targetRevision: solution-gitops-base
         path: '{{path}}'
       destination:

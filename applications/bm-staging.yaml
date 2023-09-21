@@ -8,8 +8,10 @@ metadata:
 spec:
   project: default
   source:
+    # CHANGE TO YOURS
     repoURL: 'https://github.com/asmaestro/bm-gitops.git'
     path: overlays/staging
+    # CHANGE TO YOURS
     targetRevision: solution-gitops-base
   destination:
     server: 'https://kubernetes.default.svc'
