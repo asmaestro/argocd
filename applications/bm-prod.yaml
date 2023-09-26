@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: bm-staging
+  name: bm-prod
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -10,15 +10,12 @@ spec:
   source:
     # CHANGE TO YOURS
     repoURL: 'https://github.com/asmaestro/bm-gitops.git'
-    path: overlays/staging
+    path: overlays/prod
     # CHANGE TO YOURS
     targetRevision: solution-gitops-e2e
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: staging
+    namespace: prod
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
     syncOptions:
       - CreateNamespace=true
