@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: bm-preview
+  namespace: argocd
+spec:
+  generators:
+  - pullRequest:
+      # When using a Pull Request generator, the ApplicationSet controller polls every `requeueAfterSeconds` interval (defaulting to every 30 minutes) to detect changes.
+      # NOTE: 120 is only for testing purpose. 
+      requeueAfterSeconds: 120
+      github:
+        owner: asmaestro
+        repo: bm
+        tokenRef:
+          secretName: github-token
+          key: token
+          # Labels is used to filter the PRs that you want to target. (optional)
+        labels:
+          - preview
+  template:
+    metadata:
+      name: 'bm-pullrequest-{{number}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/asmaestro/bm-gitops.git
+        targetRevision: main
+        path: 'overlays/preview/'
+        kustomize:
+          images:
+          - ghcr.io/asmaestro/bm-booking:pr-{{number}}
+          - ghcr.io/asmaestro/bm-flight:pr-{{number}}
+          - ghcr.io/asmaestro/bm-identity:pr-{{number}}
+          - ghcr.io/asmaestro/bm-passenger:pr-{{number}}
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: 'bm-pullrequest-{{number}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
