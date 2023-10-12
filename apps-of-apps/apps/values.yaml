@@ -1,0 +1,22 @@
+---
+# Global Values
+addonUrl: 'https://github.com/asmaestro/kubernetes-add-ons.git'
+pathAddons: 'add-ons'
+targetRevision: 'v1.0.0'
+
+# Nginx Values
+ingressNginx:
+  enable: true
+
+# Prometheus Values
+prometheus:
+  enable: true
+  server:
+    global:
+      scrape_interval: 50s
+  prometheus-node-exporter:
+    enabled: true
+
+# Argo Rollouts Values
+argoRollouts:
+  enable: true
